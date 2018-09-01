@@ -15,20 +15,10 @@ import java.util.List;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private Profile myProfile;
-
-    private List<Profile> list = new ArrayList<>();
+    private List<RecyclerModel> list = new ArrayList<>();
 
     private static final int VIEW_TYPE_HEADER = 1;
     private static final int VIEW_TYPE_PROFILE = 2;
-
-    public void addProfile(Profile profile) {
-        list.add(profile);
-    }
-
-    public void setMyProfile(Profile profile) {
-        myProfile = profile;
-    }
 
     @NonNull
     @Override
@@ -48,8 +38,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public int getItemViewType(int position) {
-        if (position == 0 || position == 2) return VIEW_TYPE_HEADER;
-        return VIEW_TYPE_PROFILE;
+        return list.get(position).getViewType();
     }
 
     @Override
@@ -58,15 +47,14 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         if (holder_.getItemViewType() == VIEW_TYPE_HEADER) {
             HeaderViewHolder holder = (HeaderViewHolder)holder_;
 
-            holder.headerText.setText(position == 0 ? "내 프로필" : "친구 목록");
+            String headerText = (String)list.get(position).getModel();
+            holder.headerText.setText(headerText);
         }
 
         else {
 
             ProfileViewHolder holder = (ProfileViewHolder)holder_;
-
-            Profile profile = position == 1 ?
-                    myProfile : list.get(position - 3);
+            Profile profile = (Profile)list.get(position).getModel();
 
             Glide
                     .with(holder.itemView)
@@ -74,13 +62,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     .into(holder.profileImg);
 
             holder.profileNameText.setText(profile.getName());
-
         }
     }
 
     @Override
     public int getItemCount() {
-        return list.size() + 3;
+        return list.size();
     }
 
 
