@@ -3,6 +3,7 @@ package com.example.healgaren.myapplication;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 public class MainActivity extends AppCompatActivity {
@@ -17,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycler_view);
         adapter = new RecyclerAdapter();
         recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         adapter.addProfile(new Profile("최예찬", "ㅋㅋ", "https://avatars0.githubusercontent.com/u/13010755"));
         adapter.addProfile(new Profile("테스트", "상태다", "https://avatars0.githubusercontent.com/u/4777586"));
