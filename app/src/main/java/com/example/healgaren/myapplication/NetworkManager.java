@@ -16,7 +16,7 @@ public class NetworkManager {
 
     private NetworkManager() {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://gist.githubusercontent.com/HealGaren/b6cc6e82be1e3e261e16dfb7fa926801/raw/fa23b97a2afefb264892b9a3e81f3ad3869ed3c6")
+                .baseUrl("https://gist.githubusercontent.com/HealGaren/b6cc6e82be1e3e261e16dfb7fa926801/raw/fa23b97a2afefb264892b9a3e81f3ad3869ed3c6/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
