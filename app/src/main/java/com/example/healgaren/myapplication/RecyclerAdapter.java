@@ -15,6 +15,8 @@ import java.util.List;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
+    private Profile myProfile;
+
     private List<Profile> list = new ArrayList<>();
 
     private static final int VIEW_TYPE_HEADER = 1;
@@ -22,6 +24,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     public void addProfile(Profile profile) {
         list.add(profile);
+    }
+
+    public void setMyProfile(Profile profile) {
+        myProfile = profile;
     }
 
     @NonNull
@@ -42,7 +48,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public int getItemViewType(int position) {
-        if (position == 0) return VIEW_TYPE_HEADER;
+        if (position == 0 || position == 2) return VIEW_TYPE_HEADER;
         return VIEW_TYPE_PROFILE;
     }
 
@@ -52,14 +58,15 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         if (holder_.getItemViewType() == VIEW_TYPE_HEADER) {
             HeaderViewHolder holder = (HeaderViewHolder)holder_;
 
-            holder.headerText.setText("타이틀");
+            holder.headerText.setText(position == 0 ? "내 프로필" : "친구 목록");
         }
 
         else {
 
             ProfileViewHolder holder = (ProfileViewHolder)holder_;
 
-            Profile profile = list.get(position - 1);
+            Profile profile = position == 1 ?
+                    myProfile : list.get(position - 3);
 
             Glide
                     .with(holder.itemView)
@@ -73,7 +80,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public int getItemCount() {
-        return list.size() + 1;
+        return list.size() + 3;
     }
 
 
